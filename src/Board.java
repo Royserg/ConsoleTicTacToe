@@ -4,6 +4,7 @@ public class Board {
     private char[] fields = new char[] {' ', 'X', 'O', ' ', ' ', ' ', ' ', ' ', ' ' };
 
     void drawBoard() {
+        System.out.println();
         System.out.printf(" %c # %c # %c\n", fields[0], fields[1], fields[2]);
         System.out.println(" #########");
         System.out.printf(" %c # %c # %c\n", fields[3], fields[4], fields[5]);
@@ -13,5 +14,14 @@ public class Board {
         System.out.println("============");
     }
 
+    void markSpot(int index, char marker) {
+        // mark field
+        fields[index] = marker;
+    }
 
+    String checkWinner() {
+       // do the checking
+
+       return "none";
+    }
 }
