@@ -1,13 +1,19 @@
 public class Player {
 
     private String name;
+    private char marker;
 
-    Player(String name) {
+    Player(String name, char marker) {
         this.name = name;
+        this.marker = marker;
     }
 
-    public String getName() {
+    String getName() {
         return name;
+    }
+
+    char getMarker() {
+        return marker;
     }
 
 }
