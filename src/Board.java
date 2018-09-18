@@ -16,12 +16,20 @@ public class Board {
 
     void markSpot(int index, char marker) {
         // mark field
-        fields[index] = marker;
+        fields[index - 1] = marker;
     }
 
     String checkWinner() {
        // do the checking
+        int empty = 0;
+        for (char field : fields) {
+            if (field == ' ') {
+                empty++;
+            }
+        }
 
-       return "none";
+        if (empty == 0) return "Tie";
+
+        return "none";
     }
 }
