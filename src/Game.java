@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Game {
@@ -26,9 +25,14 @@ public class Game {
 
         startGame(player1, player2);
 
-        System.out.println("==== End of Main ======");
-        System.out.println("Shouldn't arrive here");
+        // show result
+        System.out.println("==== Score ======");
+        System.out.println(player1.getName() + "'s score: " + player1.getScore());
 
+        System.out.println(player2.getName() + "'s score: " + player2.getScore());
+        System.out.println("=================");
+
+        System.out.println("Goodbye");
     }
 
     private static String userInput(String prompt) {
@@ -85,15 +89,28 @@ public class Game {
 
                 if (winCheck == player1.getMarker()) {
                     System.out.println(player1.getName() + " Won!!!");
-
+                    player1.increaseScore();
                 } else if (winCheck == player2.getMarker()){
                     System.out.println(player2.getName() + " Won!!");
+                    player2.increaseScore();
+                } else if (winCheck == 'f') {
+                    System.out.println("It is a Tie");
                 }
 
-                // check if there is any empty spot TODO
-
                 // ask if want to play again
-
+                String playAgain = userInput("Do you want to play again? Y/n: ");
+                if (playAgain.equals("n")) {
+                    break;
+                }
+                else {
+                    // change Round number
+                    roundNum++;
+                    // clear the board
+                    board.clearBoard();
+                    playing = (playing == player1) ? player2 : player1;
+                    isRunning = true;
+                    startGame(player1, player2);
+                }
             }
 
             // change player
