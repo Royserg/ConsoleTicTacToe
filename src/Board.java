@@ -1,7 +1,11 @@
-import java.util.ArrayList;
 
 public class Board {
-    private char[] fields = new char[] {' ', 'X', 'O', ' ', ' ', ' ', ' ', ' ', ' ' };
+    public char[] fields = new char[] {' ', 'X', 'O', ' ', ' ', ' ', ' ', ' ', ' ' };
+    public int[][] winOptions = {
+                                    {0, 1, 2}, {3, 4, 5}, {6, 7, 8},
+                                    {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
+                                    {0, 4, 8}, {2, 4, 6}
+                                };
 
     void drawBoard() {
         System.out.println();
@@ -19,17 +23,24 @@ public class Board {
         fields[index - 1] = marker;
     }
 
-    String checkWinner() {
-       // do the checking
-        int empty = 0;
-        for (char field : fields) {
-            if (field == ' ') {
-                empty++;
+    char checkWinner() {
+
+        // check if any player won
+        for (int[] winSequence: winOptions) {
+            char firstSymbol = fields[winSequence[0]];
+
+            for (int j = 1; j < winSequence.length; j++)
+                if (firstSymbol != fields[winSequence[j]] || firstSymbol == ' ') {
+                    // other field(s) are different
+                    firstSymbol = 'q';
+                }
+
+            if (firstSymbol != 'q') {
+                return firstSymbol;
             }
         }
 
-        if (empty == 0) return "Tie";
-
-        return "none";
+        return 'q';
     }
 }
+
