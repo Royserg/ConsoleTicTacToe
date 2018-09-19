@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Game {
@@ -23,31 +24,9 @@ public class Game {
         isRunning = true;
         playing = player1;
 
-        while (isRunning) {
-            // info
-            showRound();
-            // show board
-            board.drawBoard();
-            // user moves
-            System.out.print(playing.getName());
-            int spot = Integer.parseInt(userInput(", make your move: "));
+        startGame(player1, player2);
 
-            playerMove(spot);
-
-            // == end - check winner ==
-            String winCheck = board.checkWinner();
-
-            if (winCheck == "Tie") {
-                isRunning = false;
-                System.out.println("It is a Tie!!!");
-                System.out.println("YOu wanna play again?");
-                // some input awaiting magic TODO
-            }
-
-            // change player
-            playing = (playing == player1) ? player2 : player1;
-        }
-
+        System.out.println("==== End of Main ======");
         System.out.println("Shouldn't arrive here");
 
     }
@@ -66,11 +45,60 @@ public class Game {
         System.out.println("============");
     }
 
-    private static void playerMove(int spot) {
-        // validate provided spot TODO
+    private static void playerMove() {
+        System.out.print(playing.getName() + " [" + playing.getMarker() + "], ");
 
-        // mark the board
+        // ask user input
+        Scanner kbd = new Scanner(System.in);
+        // validate provided spot
+        int spot;
+
+        do {
+            System.out.print("make your move (1-9): ");
+            while(!kbd.hasNextInt()) {
+                System.out.print("Provide a number: ");
+                kbd.next();
+            }
+            spot = kbd.nextInt();
+        } while (spot < 1 || spot > 9 || board.fields[spot - 1] != ' ');
+
+        // mark the spot on board
         board.markSpot(spot, playing.getMarker());
+    }
+
+    private static void startGame(Player player1, Player player2) {
+        while (isRunning) {
+            // info
+            showRound();
+            // show board
+            board.drawBoard();
+
+            // player moves
+            playerMove();
+
+            // == check winner after move ==
+            char winCheck = board.checkWinner();
+
+            if (winCheck != 'q') {
+                board.drawBoard();
+                isRunning = false;
+
+                if (winCheck == player1.getMarker()) {
+                    System.out.println(player1.getName() + " Won!!!");
+
+                } else if (winCheck == player2.getMarker()){
+                    System.out.println(player2.getName() + " Won!!");
+                }
+
+                // check if there is any empty spot TODO
+
+                // ask if want to play again
+
+            }
+
+            // change player
+            playing = (playing == player1) ? player2 : player1;
+        }
     }
 
 }
