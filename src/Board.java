@@ -1,7 +1,7 @@
 
-public class Board {
-    public char[] fields = new char[] {' ', 'X', 'O', ' ', ' ', ' ', ' ', ' ', ' ' };
-    public int[][] winOptions = {
+class Board {
+    char[] fields = new char[] {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+    private int[][] winOptions = {
                                     {0, 1, 2}, {3, 4, 5}, {6, 7, 8},
                                     {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
                                     {0, 4, 8}, {2, 4, 6}
@@ -40,7 +40,18 @@ public class Board {
             }
         }
 
-        return 'q';
+        // check if board is full = Tie
+        for (char field : fields) {
+            if (field == ' ') return 'q';
+        }
+
+        return 'f';
+    }
+
+    void clearBoard(){
+        for (int i = 0; i < fields.length; i++) {
+            fields[i] = ' ';
+        }
     }
 }
 
