@@ -8,12 +8,15 @@ First small project written in Java.
 ## Overview:
 
  - beginning of the game, create 2 players
- ![Game start](./docs/game_start.JPG)
+ 
+![Game start](./docs/game_start.JPG)
  
  - gameplay
- ![gameplay](./docs/gameplay.JPG)
+ 
+![gameplay](./docs/gameplay.JPG)
  
  - game end
- ![game end](./docs/game_end.JPG)
+ 
+![game end](./docs/game_end.JPG)
  
  
